@@ -14,7 +14,7 @@ const Registration = () => {
     formState: { errors },
   } = useForm();
 
-  const { createUser, updateUserProfile, logOut } = useAuth();
+  const { createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
 
   const handleRegistration = (data) => {
@@ -68,7 +68,7 @@ const Registration = () => {
 					timer: 2500,
 				});
 				reset()
-        logOut()
+        
 					.then(() => {
 						navigate('/login');
 					})
