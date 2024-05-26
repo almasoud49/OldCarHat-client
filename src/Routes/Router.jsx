@@ -7,6 +7,11 @@ import Registration from "../pages/Registration/Registration";
 import Blogs from "../pages/Blogs/Blogs";
 import ErrorElement from "../pages/ErrorElement/ErrorElement";
 import AdminLayout from "../layout/MainLayout/AdminLayout/AdminLayout";
+import AllSeller from "../pages/Admin/AllSeller/AllSeller";
+import AdminRoute from "./AdminRoute";
+import AllBuyer from "../pages/Admin/AllBuyer/AllBuyer";
+import AllReportedProduct from "../pages/Admin/ReportedProducts/AllReportedProduct";
+
 
 
 export const router = createBrowserRouter([
@@ -40,6 +45,20 @@ export const router = createBrowserRouter([
   },
   {
     path:"/user/admin",
-    element:<AdminLayout/>
+    element:<AdminLayout/>,
+    children:[
+      {
+        path:"/user/admin",
+        element:<AdminRoute><AllSeller/></AdminRoute>
+      },
+      {
+        path:"/user/admin/buyers",
+        element: <AdminRoute><AllBuyer/></AdminRoute>
+      },
+      {
+        path: '/user/admin/reported-product',
+        element:<AdminRoute><AllReportedProduct/></AdminRoute>
+      }
+    ]
   }
 ]);
