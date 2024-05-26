@@ -1,58 +1,36 @@
-import { useState } from "react";
-import useAuth from "../../../hooks/useAuth";
 import { Link, Outlet } from 'react-router-dom';
-import { ImUsers } from 'react-icons/im';
-import { HiUsers } from 'react-icons/hi';
-import { MdReportProblem } from 'react-icons/md';
-import logo from '../../../assets/logo.jpg'
+import { BsBorderAll } from 'react-icons/bs';
+import logo from '../../assets/logo.jpg';
+import { useState } from 'react';
+import useAuth from '../../hooks/useAuth';
 
-const AdminLayout = () => {
-    const {user} = useAuth();
+const BuyerLayout = () => {
+
     const [isOpen, setIsOpen] = useState(false);
+    const {user} = useAuth();
 
     const menuItems = (
 		<>
 			<Link
-				to='/user/admin'
+				to='/user/buyer'
 				href='#'
-				className='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
+				className='flex items-center rounded-lg bg-gray-100 px-4 py-2 text-gray-700'
 			>
-				<ImUsers />
+				<BsBorderAll />
 
-				<span className='ml-3 text-sm font-medium'> All Seller </span>
-			</Link>
-			<Link
-				to='/user/admin/buyers'
-				href='#'
-				className='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
-			>
-				<HiUsers />
-
-				<span className='ml-3 text-sm font-medium'>All Buyer </span>
-			</Link>
-			<Link
-				to='/user/admin/reported-product'
-				href='#'
-				className='flex items-center rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700'
-			>
-				<MdReportProblem />
-
-				<span className='ml-3 text-sm font-medium'>
-					{' '}
-					Reported Product{' '}
-				</span>
+				<span className='ml-3 text-sm font-medium'> My Orders </span>
 			</Link>
 		</>
 	);
 
-
+    
     return (
 <div className='relative'>
 			<div>
 				<div className='navbar bg-base-100 md:hidden'>
 					<div className='flex-1'>
 						<Link to='/' className='w-24'>
-							<img src={logo} alt='Admin' />
+							<img src={logo} alt='' />
 						</Link>
 					</div>
 					<div className='flex-none'>
@@ -133,4 +111,4 @@ const AdminLayout = () => {
     );
 };
 
-export default AdminLayout;
+export default BuyerLayout;

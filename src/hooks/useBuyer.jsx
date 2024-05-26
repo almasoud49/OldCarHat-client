@@ -5,6 +5,7 @@ import useAxiosSecure from "./useAxiosSecure";
 const useBuyer = () => {
     const {user, loading} = useAuth();
     const axiosSecure = useAxiosSecure();
+    
     const {data: isBuyer, isPending:isBuyerLoading} = useQuery({
         queryKey: [user?.uid, 'isBuyer'],
         enabled: !loading,

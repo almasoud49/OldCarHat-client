@@ -6,11 +6,19 @@ import Login from "../pages/Login/Login";
 import Registration from "../pages/Registration/Registration";
 import Blogs from "../pages/Blogs/Blogs";
 import ErrorElement from "../pages/ErrorElement/ErrorElement";
-import AdminLayout from "../layout/MainLayout/AdminLayout/AdminLayout";
 import AllSeller from "../pages/Admin/AllSeller/AllSeller";
 import AdminRoute from "./AdminRoute";
 import AllBuyer from "../pages/Admin/AllBuyer/AllBuyer";
 import AllReportedProduct from "../pages/Admin/ReportedProducts/AllReportedProduct";
+import AdminLayout from "../layout/AdminLayout/AdminLayout";
+import SellerLayout from "../layout/SellerLayout/SellerLayout";
+import AddProduct from "../pages/Seller/AddProduct/AddProduct";
+import ProductByCategory from "../pages/ProductByCategory/ProductByCategory";
+import BuyerLayout from "../layout/BuyerLayout/BuyerLayout";
+import BuyerRoute from "./BuyerRoute";
+import AllOrder from "../pages/Buyer/AllOrder/AllOrder";
+
+
 
 
 
@@ -33,12 +41,24 @@ export const router = createBrowserRouter([
           element:<Registration/>
         },
         {
+          path:'/category/:id',
+          element: <ProductByCategory/>
+        },
+        {
           path:'/blogs',
           element:<Blogs/>
         },
         {
           path: '/admin-not-found',
           element: <ErrorElement message={'You Are Not An Admin'} />,
+        },
+        {
+          path: '/seller-not-found',
+          element: <ErrorElement message={'You Are Not A Seller'} />,
+        },
+        {
+          path: '/buyer-not-found',
+          element: <ErrorElement message={'You Are Not A Buyer'} />,
         },
 
     ]
@@ -49,7 +69,8 @@ export const router = createBrowserRouter([
     children:[
       {
         path:"/user/admin",
-        element:<AdminRoute><AllSeller/></AdminRoute>
+        // element:<AdminRoute><AllSeller/></AdminRoute>,
+        element:<AllSeller/>
       },
       {
         path:"/user/admin/buyers",
@@ -60,5 +81,32 @@ export const router = createBrowserRouter([
         element:<AdminRoute><AllReportedProduct/></AdminRoute>
       }
     ]
-  }
+  },
+  {
+    path:'/user/seller',
+    element: <SellerLayout/>,
+    children:[
+      {
+        path: '/user/seller',
+        element: <AddProduct/>
+      }
+    ]
+  },
+  {
+		path: '/user/buyer',
+		element: <BuyerLayout />,
+		children: [
+			{
+				path: '/user/buyer',
+				element: 
+					<BuyerRoute>
+						<AllOrder />
+					</BuyerRoute>,
+				
+						// <AllOrder />
+					
+				
+			},
+		],
+	},
 ]);

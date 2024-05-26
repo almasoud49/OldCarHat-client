@@ -36,14 +36,16 @@ const AllBuyer = () => {
 				axiosSecure.delete(
 					`/user-delete/${user?.uid}?id=${id}`
 				)
-					.then((res) => res.json())
-					.then((data) => {
+					
+					.then((res) => {
+						const data = res.data
 						if (data.deletedCount) {
 							Swal.fire('Deleted Success!', '', 'success');
 							refetch();
 						}
 					})
 					.catch((err) => {
+						console.log(err)
 						Swal.fire(
 							'Oops! Something went wrong, please try again',
 							'',

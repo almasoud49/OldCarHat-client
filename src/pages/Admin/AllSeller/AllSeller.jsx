@@ -32,14 +32,16 @@ const AllSeller = () => {
 			if (result.isConfirmed) {
 				axiosSecure.patch(
 					`/seller-verify/${user?.uid}?id=${id}`,				)
-					.then((res) => res.json())
-					.then((data) => {
+					
+					.then((res) => {
+						const data = res.data;
 						if (data.modifiedCount) {
 							refetch();
 							Swal.fire('Verified Success!', '', 'success');
 						}
 					})
 					.catch((err) => {
+						console.log(err)
 						Swal.fire(
 							'Oops! Something went wrong, please try again',
 							'',
@@ -66,14 +68,16 @@ const AllSeller = () => {
 					`/user-delete/${user?.uid}?id=${id}`,
 					
 				)
-					.then((res) => res.json())
-					.then((data) => {
+					
+					.then((res) => {
+						const data = res.data;
 						if (data.deletedCount) {
 							Swal.fire('Deleted Successfully!', '', 'success');
 							refetch();
 						}
 					})
 					.catch((err) => {
+						console.log(err)
 						Swal.fire(
 							'Oops! Something went wrong, please try again',
 							'',
@@ -103,7 +107,7 @@ const AllSeller = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{sellers.map((seller, i) => (
+						{sellers?.map((seller, i) => (
 							<tr key={seller._id}>
 								<th>{i + 1}</th>
 								

@@ -39,14 +39,16 @@ const handleDeleteReportedProduct = (id) => {
                 `/report-product-delete/${user?.uid}?id=${id}`,
                 
             )
-                .then((res) => res.json())
-                .then((data) => {
+                
+                .then((res) => {
+                    const data = res.data;
                     if (data.deletedCount) {
                         Swal.fire('Deleted Success!', '', 'success');
                         refetch();
                     }
                 })
                 .catch((err) => {
+                    console.log(err)
                     Swal.fire(
                         'Oops! Something went wrong, please try again',
                         '',
@@ -72,8 +74,9 @@ const handleReportSafe = (id) => {
                 `/report-product-safe/${user?.uid}?id=${id}`,
                 
             )
-                .then((res) => res.json())
-                .then((data) => {
+                
+                .then((res) => {
+                    const data = res.data;
                     console.log(data);
                     if (data.modifiedCount) {
                         Swal.fire('Report Undo Success!', '', 'success');
@@ -81,6 +84,7 @@ const handleReportSafe = (id) => {
                     }
                 })
                 .catch((err) => {
+                    console.log(err)
                     Swal.fire(
                         'Oops! Something went wrong, please try again',
                         '',
