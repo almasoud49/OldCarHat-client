@@ -103,8 +103,8 @@ const AddProduct = () => {
       reportCount: 0,
     };
 
-    axiosPublic
-      .post(`/products/${user?.uid}`, product ,{headers: `Bearer ${localStorage.getItem('accessToken')}`})
+    axiosSecure
+      .post(`/products/${user?.uid}`, product )
       .then((res) => {
         const data = res.data;
         if (data.acknowledged) {

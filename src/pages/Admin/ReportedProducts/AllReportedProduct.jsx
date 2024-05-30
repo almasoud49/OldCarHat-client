@@ -2,9 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const AllReportedProduct = () => {
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
 
   const {
@@ -14,7 +16,12 @@ const AllReportedProduct = () => {
   } = useQuery({
     queryKey: ["reportedProducts", user?.uid],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/reported-products/${user?.uid}`);
+      const token = localStorage.getItem("access-token");
+      const res = await axiosPublic.get(`/reported-products/${user?.uid}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return res.data;
     },
   });
@@ -42,11 +49,7 @@ const AllReportedProduct = () => {
           })
           .catch((err) => {
             console.log(err);
-            Swal.fire(
-              "Something Went Wrong, Please try Again",
-              "",
-              "error"
-            );
+            Swal.fire("Something Went Wrong, Please try Again", "", "error");
           });
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
@@ -75,11 +78,7 @@ const AllReportedProduct = () => {
           })
           .catch((err) => {
             console.log(err);
-            Swal.fire(
-              "Something Went Wrong, Please Try Again",
-              "",
-              "error"
-            );
+            Swal.fire("Something Went Wrong, Please Try Again", "", "error");
           });
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
@@ -105,7 +104,7 @@ const AllReportedProduct = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product, i) => (
+            {products?.map((product, i) => (
               <tr key={product._id}>
                 <th>{i + 1}</th>
                 <th>

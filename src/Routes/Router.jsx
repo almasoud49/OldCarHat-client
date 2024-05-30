@@ -78,7 +78,8 @@ export const router = createBrowserRouter([
       },
       {
         path: '/user/admin/reported-product',
-        element:<AdminRoute><AllReportedProduct/></AdminRoute>
+        // element:<AdminRoute><AllReportedProduct/></AdminRoute>
+        element:<AllReportedProduct/>
       }
     ]
   },
