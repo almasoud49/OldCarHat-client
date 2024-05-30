@@ -42,11 +42,10 @@ const AllSeller = () => {
       denyButtonText: `Don't Confirm`,
     }).then((result) => {
       if (result.isConfirmed) {
-       axiosSecure.patch(`http://localhost:5000/seller-verify/${user?.uid}?id=${id}`)
-      // .then((res) => res.json())
+        axiosSecure.patch(`/seller-verify/${user?.uid}?id=${id}`)
           .then((res) => {
-            const data = res.data
-             if (data.modifiedCount) {
+            const data = res.data;
+            if (data.modifiedCount) {
               refetch();
               Swal.fire("Verified Success!", "", "success");
             }
