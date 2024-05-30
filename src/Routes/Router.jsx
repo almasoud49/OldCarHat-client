@@ -17,6 +17,7 @@ import ProductByCategory from "../pages/ProductByCategory/ProductByCategory";
 import BuyerLayout from "../layout/BuyerLayout/BuyerLayout";
 import BuyerRoute from "./BuyerRoute";
 import AllOrder from "../pages/Buyer/AllOrder/AllOrder";
+import DisplaySellerProducts from "../pages/Seller/DisplaySellerProducts/DisplaySellerProducts";
 
 
 
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
       {
         path: '/user/seller',
         element: <AddProduct/>
+      },
+      {
+        path:'/user/seller/all-products',
+        element: <DisplaySellerProducts />
       }
     ]
   },

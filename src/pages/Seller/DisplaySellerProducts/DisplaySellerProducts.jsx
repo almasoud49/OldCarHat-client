@@ -32,10 +32,8 @@ const DisplaySellerProducts = () => {
       denyButtonText: `Don't Confirm`,
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosPublic
-          .delete(`/product-delete/${user?.uid}?id=${id}`, {
-            headers: `Bearer ${localStorage.getItem("accessToken")}`,
-          })
+        axiosSecure
+          .delete(`/product-delete/${user?.uid}?id=${id}`)
 
           .then((res) => {
             const data = res.data;
@@ -47,7 +45,7 @@ const DisplaySellerProducts = () => {
           .catch((err) => {
             console.log(err);
             Swal.fire(
-              "Oops! Something went wrong, please try again",
+              "Something went wrong, please try again",
               "",
               "error"
             );
@@ -67,10 +65,8 @@ const DisplaySellerProducts = () => {
       denyButtonText: `Don't Confirm`,
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosPublic
-          .patch(`/promote-product/${user?.uid}?id=${id}`, {
-            headers: `Bearer ${localStorage.getItem("accessToken")}`,
-          })
+        axiosSecure
+          .patch(`/promote-product/${user?.uid}?id=${id}`)
 
           .then((res) => {
             const data = res.data;
@@ -85,7 +81,7 @@ const DisplaySellerProducts = () => {
             const errorMessage =
               err.response?.data?.message ||
               err.message ||
-              "Oops! Something went wrong, please try again";
+              "Something went wrong, please try again";
             Swal.fire({
               title: "Error",
               text: errorMessage,
@@ -107,7 +103,7 @@ const DisplaySellerProducts = () => {
       <div className="divider"></div>
       <h2 className="text-3xl text-center">All order List</h2>
       <div className="divider"></div>
-      {products.length > 0 ? (
+      {products?.length > 0 ? (
         <div className="overflow-x-auto">
           <table className="table w-full">
             <thead>

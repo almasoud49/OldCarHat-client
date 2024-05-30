@@ -47,7 +47,7 @@ const BuyerLayout = () => {
                         {user?.displayName}
                       </strong>
 
-                      <span> {user?.uid} </span>
+                      <span> {user?.email} </span>
                     </p>
                   </div>
                 </Link>
@@ -90,7 +90,7 @@ const BuyerLayout = () => {
                       {user?.displayName}
                     </strong>
 
-                    <span> {user?.uid} </span>
+                    <span> {user?.email} </span>
                   </p>
                 </div>
               </Link>

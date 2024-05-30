@@ -1,14 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
-// import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AllOrder = () => {
   const { user } = useAuth();
-  // const axiosSecure = useAxiosSecure();
-  const axiosPublic = useAxiosPublic();
+   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
 
   const { data: orders, isLoading } = useQuery({
