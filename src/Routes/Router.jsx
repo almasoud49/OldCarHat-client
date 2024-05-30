@@ -99,11 +99,11 @@ export const router = createBrowserRouter([
 			{
 				path: '/user/buyer',
 				element: 
-					<BuyerRoute>
-						<AllOrder />
-					</BuyerRoute>,
+					// <BuyerRoute>
+					// 	<AllOrder />
+					// </BuyerRoute>,
 				
-						// <AllOrder />
+						<AllOrder />
 					
 				
 			},

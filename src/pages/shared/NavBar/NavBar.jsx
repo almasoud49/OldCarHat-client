@@ -1,40 +1,41 @@
 import { Link } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth"
+import useAuth from "../../../hooks/useAuth";
 
 const NavBar = () => {
-  const {user, logOut} = useAuth();
+  const { user, logOut } = useAuth();
 
   const handleLogOut = () => {
     logOut()
-    .then(()=>{})
-    .catch(error => console.log(error));
-  }
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
 
   const menuItems = (
     <>
-    <li>
-      <Link to='/'>Home</Link>
-    </li>
-    <li>
-      <Link to='/blogs'>Blogs</Link>
-    </li>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/blogs">Blogs</Link>
+      </li>
 
-    {
-      user ? <> 
-          <button onClick={handleLogOut} className="btn btn-ghost">LogOut</button>
-      </> : 
-      <> 
+      {user ? (
+        <>
+          <button onClick={handleLogOut} className="btn btn-ghost">
+            LogOut
+          </button>
+        </>
+      ) : (
+        <>
           <li>
-      <Link to='/login'>Login</Link>
-    </li>
-      </>
-    }
-
+            <Link to="/login">Login</Link>
+          </li>
+        </>
+      )}
     </>
-  )
+  );
   return (
-
-<div className="navbar bg-base-100">
+    <div className="navbar bg-base-100">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -57,20 +58,16 @@ const NavBar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
-            
             {menuItems}
           </ul>
         </div>
         <a className="btn btn-ghost text-xl">oldCarHat</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          
-          {menuItems}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{menuItems}</ul>
       </div>
       <div className="navbar-end">
-      <>
+        <>
           {user?.uid ? (
             <>
               <img
@@ -95,7 +92,6 @@ const NavBar = () => {
         </>
       </div>
     </div>
-
   );
 };
 

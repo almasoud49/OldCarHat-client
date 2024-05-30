@@ -1,102 +1,102 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const AllBuyer = () => {
-    const axiosSecure = useAxiosSecure();
-    const {user} = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
+  const { user } = useAuth();
 
-    const {
-		data: buyers,
-		isLoading,
-		refetch,
-	} = useQuery({
-		queryKey: ['buyers', user?.uid],
-		queryFn: async () => {
-			const res = await axiosSecure.get(
-				`/users-by-role/${user?.uid}?role=buyer`);
+  const {
+    data: buyers,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["buyers", user?.uid],
+    queryFn: async () => {
+      const res = await axiosPublic.get(
+        `/users-by-role/${user?.uid}?role=buyer`,
+        { headers: `Bearer ${localStorage.getItem("accessToken")}` }
+      );
 
-			return res.data;
-		},
-	});
+      return res.data;
+    },
+  });
 
-    if(isLoading) return <progress className="progress w-56"></progress>
+  if (isLoading) return <progress className="progress w-56"></progress>;
 
-    const handleUserDelete = (id) => {
-		Swal.fire({
-			title: 'Do you want to delete this buyer?',
-			showDenyButton: true,
-			showCancelButton: false,
-			confirmButtonText: 'Confirm Verified',
-			denyButtonText: `Don't Confirm`,
-		}).then((result) => {
-			
-			if (result.isConfirmed) {
-				axiosSecure.delete(
-					`/user-delete/${user?.uid}?id=${id}`
-				)
-					
-					.then((res) => {
-						const data = res.data
-						if (data.deletedCount) {
-							Swal.fire('Deleted Success!', '', 'success');
-							refetch();
-						}
-					})
-					.catch((err) => {
-						console.log(err)
-						Swal.fire(
-							'Oops! Something went wrong, please try again',
-							'',
-							'error'
-						);
-					});
-			} else if (result.isDenied) {
-				Swal.fire('Changes are not saved', '', 'info');
-			}
-		});
-	};
+  const handleUserDelete = (id) => {
+    Swal.fire({
+      title: "Do you want to delete this buyer?",
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Confirm Verified",
+      denyButtonText: `Don't Confirm`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/user-delete/${user?.uid}?id=${id}`)
 
-    return (
-        <div className='w-screen md:w-[calc(100vw-240px)]'>
-			<div className='divider'></div>
-			<h2 className='text-3xl text-center'>All Buyer List</h2>
-			<div className='divider'></div>
-			<div className='overflow-x-auto'>
-				<table className='table w-full'>
-					<thead>
-						<tr>
-							<th></th>
-							<th>Name</th>
-							<th>Email</th>
-							<th>Delete</th>
-						</tr>
-					</thead>
-					<tbody>
-						{buyers.map((buyer, i) => (
-							<tr key={buyer._id}>
-								<th>{i + 1}</th>
-								<td>{buyer.displayName}</td>
-								<td>{buyer.email}</td>
+          .then((res) => {
+            const data = res.data;
+            if (data.deletedCount) {
+              Swal.fire("Deleted Success!", "", "success");
+              refetch();
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            Swal.fire(
+              "Oops! Something went wrong, please try again",
+              "",
+              "error"
+            );
+          });
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  };
 
-								<td>
-									<button
-										onClick={() =>
-											handleUserDelete(buyer._id)
-										}
-										className='btn btn-xs btn-danger'
-									>
-										Delete
-									</button>
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
-			</div>
-		</div>
-    );
+  return (
+    <div className="w-screen md:w-[calc(100vw-240px)]">
+      <div className="divider"></div>
+      <h2 className="text-3xl text-center">All Buyer List</h2>
+      <div className="divider"></div>
+      <div className="overflow-x-auto">
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>uid</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {buyers.map((buyer, i) => (
+              <tr key={buyer._id}>
+                <th>{i + 1}</th>
+                <td>{buyer.displayName}</td>
+                <td>{buyer.uid}</td>
+
+                <td>
+                  <button
+                    onClick={() => handleUserDelete(buyer._id)}
+                    className="btn btn-xs btn-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 };
 
 export default AllBuyer;
