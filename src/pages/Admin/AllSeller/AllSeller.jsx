@@ -69,20 +69,18 @@ const AllSeller = () => {
       title: "Do you want to delete this buyer?",
       showDenyButton: true,
       showCancelButton: false,
-      confirmButtonText: "Confirm Verified",
+      confirmButtonText: "Confirm Deletion",
       denyButtonText: `Don't Confirm`,
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000//user-delete/${user?.uid}?id=${id}`,{
-          method: 'DELETE',
-          headers: authHeader,
-        })
-        .then((res) => res.json())
-          .then((data) => {
-            
+        axiosSecure.delete(`/user-delete/${user?.uid}?id=${id}`)
+          .then((res) => {
+            const data = res.data;
             if (data.deletedCount) {
               Swal.fire("Deleted Successfully!", "", "success");
               refetch();
+            } else {
+              Swal.fire("No user was deleted.", "", "info");
             }
           })
           .catch((err) => {
