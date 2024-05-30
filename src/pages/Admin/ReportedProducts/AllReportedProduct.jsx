@@ -43,7 +43,7 @@ const AllReportedProduct = () => {
           .catch((err) => {
             console.log(err);
             Swal.fire(
-              "Oops! Something went wrong, please try again",
+              "Something Went Wrong, Please try Again",
               "",
               "error"
             );
@@ -76,7 +76,7 @@ const AllReportedProduct = () => {
           .catch((err) => {
             console.log(err);
             Swal.fire(
-              "Oops! Something went wrong, please try again",
+              "Something Went Wrong, Please Try Again",
               "",
               "error"
             );

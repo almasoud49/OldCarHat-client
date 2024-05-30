@@ -98,10 +98,11 @@ const Registration = () => {
       uid: uid,
       status: "unverified",
     };
+
     axiosPublic
       .post("/users", userInfo)
       .then((res) => {
-        console.log(res);
+        console.log('User Saved',res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -127,10 +128,10 @@ const Registration = () => {
                 type="text"
                 placeholder="Full Name"
                 className="input input-bordered"
-                {...register("username", { required: "Username is required" })}
+                {...register("name", { required: "name is required" })}
               />
-              {errors.username && (
-                <p className="text-red-500">{errors.username.message}</p>
+              {errors.name && (
+                <p className="text-red-500">{errors.name.message}</p>
               )}
             </div>
             <div className="form-control">

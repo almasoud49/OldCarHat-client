@@ -2,11 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+
 
 const AllBuyer = () => {
   const axiosSecure = useAxiosSecure();
-  const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
 
   const {
@@ -16,10 +15,8 @@ const AllBuyer = () => {
   } = useQuery({
     queryKey: ["buyers", user?.uid],
     queryFn: async () => {
-      const res = await axiosPublic.get(
-        `/users-by-role/${user?.uid}?role=buyer`,
-        { headers: `Bearer ${localStorage.getItem("accessToken")}` }
-      );
+      const res = await axiosSecure.get(
+        `/users-by-role/${user?.uid}?role=buyer`);
 
       return res.data;
     },
@@ -27,6 +24,7 @@ const AllBuyer = () => {
 
   if (isLoading) return <progress className="progress w-56"></progress>;
 
+  //delete buyer
   const handleUserDelete = (id) => {
     Swal.fire({
       title: "Do you want to delete this buyer?",
@@ -49,7 +47,7 @@ const AllBuyer = () => {
           .catch((err) => {
             console.log(err);
             Swal.fire(
-              "Oops! Something went wrong, please try again",
+              "Something Went Wrong, Please Try Again",
               "",
               "error"
             );
@@ -69,18 +67,18 @@ const AllBuyer = () => {
         <table className="table w-full">
           <thead>
             <tr>
-              <th></th>
+              <th>No.</th>
               <th>Name</th>
-              <th>uid</th>
+              <th>Email</th>
               <th>Delete</th>
             </tr>
           </thead>
           <tbody>
-            {buyers.map((buyer, i) => (
+            {buyers?.map((buyer, i) => (
               <tr key={buyer._id}>
                 <th>{i + 1}</th>
                 <td>{buyer.displayName}</td>
-                <td>{buyer.uid}</td>
+                <td>{buyer.email}</td>
 
                 <td>
                   <button

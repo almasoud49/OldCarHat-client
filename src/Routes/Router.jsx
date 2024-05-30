@@ -69,8 +69,8 @@ export const router = createBrowserRouter([
     children:[
       {
         path:"/user/admin",
-        // element:<AdminRoute><AllSeller/></AdminRoute>,
-        element:<AllSeller/>
+        element:<AdminRoute><AllSeller/></AdminRoute>,
+        
       },
       {
         path:"/user/admin/buyers",
@@ -99,11 +99,11 @@ export const router = createBrowserRouter([
 			{
 				path: '/user/buyer',
 				element: 
-					// <BuyerRoute>
-					// 	<AllOrder />
-					// </BuyerRoute>,
-				
+					<BuyerRoute>
 						<AllOrder />
+					</BuyerRoute>,
+				
+						// <AllOrder />
 					
 				
 			},

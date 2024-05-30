@@ -3,16 +3,13 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import Swal from "sweetalert2";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
-import useAuthHeader from "../../../hooks/useAuthHeader";
 
 const AllSeller = () => {
   const axiosSecure = useAxiosSecure();
-  const axiosPublic = useAxiosPublic();
-  const { user } = useAuth();
-  const [authHeader] = useAuthHeader();
-
-  const {
+    const { user } = useAuth();
+  
+  //get all seller
+    const {
     data: sellers,
     isLoading,
     refetch,
@@ -33,6 +30,7 @@ const AllSeller = () => {
 
   if (isLoading) return <progress className="progress w-56"></progress>;
 
+  //verify user as seller
   const handleConfirmVerify = (id) => {
     Swal.fire({
       title: "Do you want to verify this seller?",
@@ -47,13 +45,13 @@ const AllSeller = () => {
             const data = res.data;
             if (data.modifiedCount) {
               refetch();
-              Swal.fire("Verified Success!", "", "success");
+              Swal.fire("Verified Success!", "", "Success");
             }
           })
           .catch((err) => {
             console.log(err);
             Swal.fire(
-              "Something went wrong, please try again",
+              "Something Went Wrong, Please Try Again",
               "",
               "error"
             );
@@ -64,6 +62,7 @@ const AllSeller = () => {
     });
   };
 
+  //delete seller
   const handleUserDelete = (id) => {
     Swal.fire({
       title: "Do you want to delete this buyer?",
@@ -77,16 +76,16 @@ const AllSeller = () => {
           .then((res) => {
             const data = res.data;
             if (data.deletedCount) {
-              Swal.fire("Deleted Successfully!", "", "success");
+              Swal.fire("Deleted Successfully!", "", "Success");
               refetch();
             } else {
-              Swal.fire("No user was deleted.", "", "info");
+              Swal.fire("No user was deleted.", "", "Info");
             }
           })
           .catch((err) => {
             console.log(err);
             Swal.fire(
-              "Something went wrong, please try again",
+              "Something Went Wrong, Please Try Again",
               "",
               "error"
             );
@@ -106,7 +105,7 @@ const AllSeller = () => {
         <table className="table w-full">
           <thead>
             <tr>
-              <th></th>
+              <th>No.</th>
               <th>Name</th>
               <th>Email</th>
               <th>Status</th>
@@ -115,11 +114,12 @@ const AllSeller = () => {
           </thead>
           <tbody>
             {sellers?.map((seller, i) => (
+             
               <tr key={seller._id}>
                 <th>{i + 1}</th>
-
                 <td className="flex items-center">
-                  {seller?.displayName}{" "}
+                  {seller?.displayName }{" "}
+                  
                   <span>
                     {seller?.status === "verified" ? (
                       <MdOutlineVerifiedUser className="text-primary text-sm rounded-full ml-1" />

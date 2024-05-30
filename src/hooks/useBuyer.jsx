@@ -7,12 +7,13 @@ const useBuyer = () => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
-  const { data: isBuyer, isPending: isBuyerLoading } = useQuery({
+  const { data: isBuyer, isLoading: isBuyerLoading } = useQuery({
     queryKey: [user?.uid, "isBuyer"],
-    enabled: !loading,
+    enabled: !!user?.uid && !loading,
     queryFn: async () => {
+      if (!user?.uid) return false;
       const res = await axiosSecure.get(`/user/buyer/${user?.uid}`);
-      return res.data?.buyer;
+      return res.data?.isBuyer;
     },
   });
   return [isBuyer, isBuyerLoading];
