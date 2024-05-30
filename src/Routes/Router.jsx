@@ -18,6 +18,7 @@ import BuyerLayout from "../layout/BuyerLayout/BuyerLayout";
 import BuyerRoute from "./BuyerRoute";
 import AllOrder from "../pages/Buyer/AllOrder/AllOrder";
 import DisplaySellerProducts from "../pages/Seller/DisplaySellerProducts/DisplaySellerProducts";
+import PaymentPage from "../pages/Payment/PaymentPage/PaymentPage";
 
 
 
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
         {
           path:'/category/:id',
           element: <ProductByCategory/>
+        },
+        {
+          path:'/payment/:id',
+          element:<PaymentPage/>
         },
         {
           path:'/blogs',
