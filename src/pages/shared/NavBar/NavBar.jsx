@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import useAdmin from "../../../hooks/useAdmin";
+import useSeller from "../../../hooks/useSeller";
+import useBuyer from "../../../hooks/useBuyer";
 
 const NavBar = () => {
   const { user, logOut } = useAuth();
@@ -9,6 +12,9 @@ const NavBar = () => {
       .then(() => {})
       .catch((error) => console.log(error));
   };
+  const [isAdmin] = useAdmin();
+  const [isSeller] = useSeller();
+  const [isBuyer] = useBuyer();
 
   const menuItems = (
     <>
@@ -19,19 +25,22 @@ const NavBar = () => {
         <Link to="/blogs">Blogs</Link>
       </li>
 
-      {user ? (
-        <>
-          <button onClick={handleLogOut} className="btn btn-ghost">
+      <li>
+        {isAdmin && <Link to="/user/admin">Admin Dashboard</Link>}
+        {isSeller && <Link to="/user/seller">Seller Dashboard</Link>}
+        {isBuyer && <Link to="/user/buyer">Buyer Dashboard</Link>}
+      </li>
+
+      <li>
+        {user && (
+          <button
+            onClick={handleLogOut}
+            className="btn btn-ghost"
+          >
             LogOut
           </button>
-        </>
-      ) : (
-        <>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-        </>
-      )}
+        )}
+      </li>
     </>
   );
   return (

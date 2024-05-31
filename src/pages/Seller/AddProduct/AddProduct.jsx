@@ -104,7 +104,7 @@ const AddProduct = () => {
     };
 
     axiosSecure
-      .post(`/products/${user?.uid}`, product )
+      .post(`/products`, product )
       .then((res) => {
         const data = res.data;
         if (data.acknowledged) {
@@ -123,7 +123,7 @@ const AddProduct = () => {
     const new_category = capitalizeFirstLetter(event.target.new_category.value);
 
     axiosSecure
-      .post(`/categories/${user?.uid}`, { category_name: new_category })
+      .post(`/categories`, { category_name: new_category })
       .then((res) => {
         const data = res.data;
         if (data.acknowledged) {

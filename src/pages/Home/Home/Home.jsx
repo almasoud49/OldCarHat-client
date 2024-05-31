@@ -1,8 +1,14 @@
+import DisplayPromoteProduct from "../../Promote/DisplayPromoteProduct"
+import Banner from "../Banner/Banner";
+import DisplayCategories from "../DisplayCategories/DisplayCategories";
+
 
 const Home = () => {
     return (
         <div>
-           <h2>This is home</h2> 
+            <Banner/>
+            <DisplayPromoteProduct />
+           <DisplayCategories/>
         </div>
     );
 };

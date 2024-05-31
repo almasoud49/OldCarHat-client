@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 // import required modules
-import { Pagination } from "swiper";
+import  Pagination  from "swiper";
 
 const DisplayPromoteProduct = () => {
   const axiosPublic = useAxiosPublic();
@@ -16,7 +16,7 @@ const DisplayPromoteProduct = () => {
   const { data: products, isLoading } = useQuery({
     queryKey: ["promotedProduct"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/promoted-product");
+      const res = await axiosPublic.get(`/promoted-product/`);
       return res.data;
     },
   });
@@ -27,7 +27,7 @@ const DisplayPromoteProduct = () => {
 
   return (
     <>
-      {products.length > 0 && (
+      {products?.length > 0 && (
         <div className="p-2">
           <p className="underline font-semibold">Advertisement</p>
           <Swiper

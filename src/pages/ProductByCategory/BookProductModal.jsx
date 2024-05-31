@@ -31,9 +31,9 @@ const BookProductModal = ({ bookedProduct, handleProductBooked }) => {
             />
             <input
               type="uid"
-              defaultValue={user?.uid}
+              defaultValue={user?.email}
               disabled
-              placeholder="Your uid"
+              placeholder="Your Email"
               className="input input-bordered w-full"
             />
             <input

@@ -14,10 +14,10 @@ const CheckoutForm = ({ order, reloadOrder, setReloadOrder }) => {
   const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    if (order.product_info?.product_id && user?.uid) {
+    if (order.product_info?.product_id ) {
       axiosSecure
         .post(
-          `/create-payment-intent/${user?.uid}?id=${order.product_info?.product_id}`
+          `/create-payment-intent/${order.product_info.product_id}`
         )
 
         .then((res) => {
@@ -75,7 +75,7 @@ const CheckoutForm = ({ order, reloadOrder, setReloadOrder }) => {
       };
       axiosSecure
         .post(
-          `/payments/${user?.uid}`,
+          `/payments`,
           payment
         )
 

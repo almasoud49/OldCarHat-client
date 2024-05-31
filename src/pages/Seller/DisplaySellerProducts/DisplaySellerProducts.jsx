@@ -14,9 +14,9 @@ const DisplaySellerProducts = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["products", user?.uid],
+    queryKey: ["products"],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/products/${user?.uid}`, {
+      const res = await axiosPublic.get(`/products`, {
         headers: `Bearer ${localStorage.getItem("accessToken")}`,
       });
       return res.data;

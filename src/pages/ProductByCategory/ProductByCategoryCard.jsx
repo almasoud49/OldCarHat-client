@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { format } from 'date-fns';
+import { useEffect, useState } from "react";
 import { MdOutlineVerifiedUser, MdReportProblem } from "react-icons/md";
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const ProductByCategoryCard = ({
   product,
@@ -8,6 +10,7 @@ const ProductByCategoryCard = ({
   isBuyer,
 }) => {
   const [verifiedSeller, setVerifiedSeller] = useState(false);
+  const axiosSecure = useAxiosSecure();
   const {
     product_name,
 		product_description,
@@ -30,13 +33,14 @@ const ProductByCategoryCard = ({
 
   useEffect(() => {
     if ((seller_uid)) {
-      fetch(`http://localhost:5000/seller-verify/${(seller_uid)}`)
-        .then((res) => res.json())
-        .then((data) => {
+      axiosSecure.get(`/seller-verify/${(seller_uid)}`)
+        
+        .then((res) => {
+          const data = res.data;
           setVerifiedSeller(data.isVerified);
         });
     }
-  }, [(seller_uid)]);
+  }, [(seller_uid), axiosSecure]);
   return (
     <div className="block rounded-lg p-4 shadow-sm hover:shadow-md shadow-indigo-100 h-full">
       <img
